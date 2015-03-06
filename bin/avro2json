@@ -3,12 +3,39 @@
 require 'rubygems'
 require 'avro'
 require 'json'
+require 'optparse'
 
-# Buffer the input in order to allow seeking -- otherwise Avro blows up.
-io = StringIO.new($stdin.read)
-
-reader = Avro::DataFile::Reader.new(io, Avro::IO::DatumReader.new)
-
-reader.each do |record|
-  puts JSON.pretty_generate(record)
+def load_records(input, options)
+  schema_path = options[:schema_path]
+  schema = schema_path && Avro::Schema.parse(File.read(schema_path))
+  Avro::DataFile::Reader.new(input, Avro::IO::DatumReader.new(nil, schema))
 end
+
+def main
+  options = {}
+
+  option_parser = OptionParser.new do |opts|
+    opts.banner = "Usage: avro2json [options]"
+
+    opts.on("-sSCHEMA", "--schema=SCHEMA", "Use the specified schema file when decoding") do |schema|
+      options[:schema_path] = schema
+    end
+
+    opts.on("-h", "--help", "Prints this help") do
+      puts opts
+      exit
+    end
+  end
+
+  option_parser.parse!
+
+  # Buffer the input in order to allow seeking -- otherwise Avro blows up.
+  input = StringIO.new($stdin.read)
+  records = load_records(input, options)
+
+  records.each do |record|
+    puts JSON.pretty_generate(record)
+  end
+end
+
+main
