@@ -15,3 +15,10 @@ avro2json --schema=some-schema.avsc < data.avro
 ```
 
 Run `avro2json -h` for more information.
+
+
+## Installation
+
+```
+gem install avro2json
+```
