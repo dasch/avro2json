@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'avro'
+require 'json'
+
+# Buffer the input in order to allow seeking -- otherwise Avro blows up.
+io = StringIO.new($stdin.read)
+
+reader = Avro::DataFile::Reader.new(io, Avro::IO::DatumReader.new)
+
+reader.each do |record|
+  puts JSON.pretty_generate(record)
+end

@@ -1,10 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'avropp/version'
+require 'avro2json/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "avropp"
+  spec.name          = "avro2json"
   spec.version       = Avropp::VERSION
   spec.authors       = ["Daniel Schierbeck"]
   spec.email         = ["dasch@zendesk.com"]
