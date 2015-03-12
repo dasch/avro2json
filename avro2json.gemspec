@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "avro2json"
-  spec.version       = "0.1.0"
+  spec.version       = "0.2.0"
   spec.authors       = ["Daniel Schierbeck"]
   spec.email         = ["dasch@zendesk.com"]
   spec.summary       = "Decodes Avro data files and converts the data to JSON"
