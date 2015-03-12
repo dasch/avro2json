@@ -30,7 +30,7 @@ def main
   option_parser.parse!
 
   # Buffer the input in order to allow seeking -- otherwise Avro blows up.
-  input = StringIO.new($stdin.read)
+  input = StringIO.new(ARGF.read)
   records = load_records(input, options)
 
   records.each do |record|
